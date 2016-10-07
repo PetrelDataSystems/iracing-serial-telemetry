@@ -95,6 +95,8 @@ bool init()
 	//****FixMe, in a real program you would want to handle the port going away and coming back again in a graceful manner.
 	int portList[32];
 	int portCount = 32;
+
+	// TODO remove hard-coded port number
 	int port = 3; // serial.enumeratePorts(portList, &portCount);
 
 	// open serial, hopefully this is the arduino
@@ -138,9 +140,9 @@ void run()
 				g_SessionTime.getDouble(),
 				g_lap.getInt(),
 				g_lapDistancePercentage.getFloat(),
-				1.1f, //g_carLon.getDouble(),
-				1.3f, //g_carLat.getDouble(),
-				1.4f, //g_carAlt.getFloat(),
+				0.0f, //g_carLon.getDouble(),
+				0.0f, //g_carLat.getDouble(),
+				0.0f, //g_carAlt.getFloat(),
 				g_carSpeed.getFloat(),
 				g_carThrottle.getFloat(),
 				g_carBrake.getFloat(),
@@ -158,12 +160,9 @@ void run()
 			serial.writeSerialPrintf(serialBuffer);
 
 			if (printedSize > SERIAL_BUFFER_SIZE) {
-				// TODO Attempt to increase the buffer size
+				// TODO Dynamically allocate buffer and attempt to increase its size
 				printf("Buffer too small for output.");
 			}
-
-			//printf("%f, %f, %d, %d\n", g_carVelX.getDouble(), g_carVelX.getFloat(), g_carVelX.getInt(), g_carVelX.getBool());
-			//serial.writeSerialPrintf("%0.4f,%0.4f,%0.4f\n", g_carYawRate.getFloat(), g_carPitchRate.getFloat(), g_carRollRate.getFloat());
 		}
 	}
 

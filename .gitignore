@@ -250,3 +250,16 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+/irsdk_ffbforce
+/yaml_parser.h
+/yaml_parser.cpp
+/irsdk_writetest
+/irsdk_utils.cpp
+/irsdk_server
+/irsdk_readtest
+/irsdk_msgtest
+/irsdk_diskclient.h
+/irsdk_diskclient.cpp
+/irsdk_defines.h
+/irsdk_client.h
+/irsdk_client.cpp
