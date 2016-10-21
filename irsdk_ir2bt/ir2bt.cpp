@@ -72,6 +72,7 @@ irsdkCVar g_carRollRate("RollRate");
 // Absolute orientation
 irsdkCVar g_carPitch("Pitch");
 irsdkCVar g_carRoll("Roll");
+irsdkCVar g_carYawNorth("YawNorth");
 
 Serial serial;
 
@@ -147,7 +148,7 @@ void run()
 			int printedSize = snprintf(
 				serialBuffer, 
 				SERIAL_BUFFER_SIZE, 
-				"$IRTEL,%0.3f,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", 
+				"$IRTEL,%0.3f,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", 
 				g_SessionTime.getDouble(),
 				g_EnterExitReset.getInt(),
 				g_lap.getInt(),
@@ -170,7 +171,8 @@ void run()
 				g_carPitchRate.getFloat(),
 				g_carRollRate.getFloat(),
 				g_carPitch.getFloat(),
-				g_carRoll.getFloat()
+				g_carRoll.getFloat(),
+				g_carYawNorth.getFloat()
 			);
 
 			printf("%s\n", serialBuffer);
