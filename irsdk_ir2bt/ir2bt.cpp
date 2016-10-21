@@ -31,6 +31,8 @@
 // shut off motion if this is not true
 irsdkCVar g_playerInCar("IsOnTrack");
 
+irsdkCVar g_EnterExitReset("EnterExitReset");
+
 // Session time in seconds (double)
 irsdkCVar g_SessionTime("SessionTime");
 
@@ -47,20 +49,29 @@ irsdkCVar g_carAlt("Alt");
 
 // Vehicle data
 irsdkCVar g_carSpeed("Speed"); // Speed in m/s (float)
-irsdkCVar g_carThrottle("ThrottleRaw"); // Throttle % (float) scaled from 0 to 1
-irsdkCVar g_carBrake("BrakeRaw"); // Brake % (float) scaled from 0 to 1
+irsdkCVar g_carThrottleRaw("ThrottleRaw"); // Throttle % (float) scaled from 0 to 1
+irsdkCVar g_carBrakeRaw("BrakeRaw"); // Brake % (float) scaled from 0 to 1
 irsdkCVar g_carSteeringWheelAngle("SteeringWheelAngle"); // Steering angle radians (float)
 irsdkCVar g_carRPM("RPM"); // Engine RPM (float)
 
+// float individial speed vectors
+irsdkCVar g_carVelocityX("VelocityX");
+irsdkCVar g_carVelocityY("VelocityY");
+irsdkCVar g_carVelocityZ("VelocityZ");
+
 // float, cars acceleration in m/s^2
-irsdkCVar g_carAccelX("LongAccel");
-irsdkCVar g_carAccelY("LatAccel");
-irsdkCVar g_carAccelZ("VertAccel");
+irsdkCVar g_carLatAccel("LatAccel");
+irsdkCVar g_carLongAccel("LongAccel");
+irsdkCVar g_carVertAccel("VertAccel");
 
 // float, cars change in orientation in rad/s
 irsdkCVar g_carYawRate("YawRate");
 irsdkCVar g_carPitchRate("PitchRate");
 irsdkCVar g_carRollRate("RollRate");
+
+// Absolute orientation
+irsdkCVar g_carPitch("Pitch");
+irsdkCVar g_carRoll("Roll");
 
 Serial serial;
 
@@ -136,24 +147,30 @@ void run()
 			int printedSize = snprintf(
 				serialBuffer, 
 				SERIAL_BUFFER_SIZE, 
-				"$%0.3f,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", 
+				"$IRTEL,%0.3f,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", 
 				g_SessionTime.getDouble(),
+				g_EnterExitReset.getInt(),
 				g_lap.getInt(),
 				g_lapDistancePercentage.getFloat(),
 				0.0f, //g_carLon.getDouble(),
 				0.0f, //g_carLat.getDouble(),
 				0.0f, //g_carAlt.getFloat(),
 				g_carSpeed.getFloat(),
-				g_carThrottle.getFloat(),
-				g_carBrake.getFloat(),
+				g_carThrottleRaw.getFloat(),
+				g_carBrakeRaw.getFloat(),
 				g_carSteeringWheelAngle.getFloat(),
-				g_carRPM.getFloat(),
-				g_carAccelX.getFloat(),
-				g_carAccelY.getFloat(),
-				g_carAccelX.getFloat(),
+				g_carRPM.getFloat(), 
+				g_carVelocityX.getFloat(),
+				g_carVelocityY.getFloat(),
+				g_carVelocityZ.getFloat(),
+				g_carLatAccel.getFloat(),
+				g_carLongAccel.getFloat(),
+				g_carVertAccel.getFloat(),
 				g_carYawRate.getFloat(),
 				g_carPitchRate.getFloat(),
-				g_carRollRate.getFloat()
+				g_carRollRate.getFloat(),
+				g_carPitch.getFloat(),
+				g_carRoll.getFloat()
 			);
 
 			printf("%s\n", serialBuffer);
