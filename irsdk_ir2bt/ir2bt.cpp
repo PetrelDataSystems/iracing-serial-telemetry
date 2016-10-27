@@ -41,6 +41,9 @@ irsdkCVar g_lap("Lap");
 // % lap complete
 irsdkCVar g_lapDistancePercentage("LapDistPct"); // Float from 0 to 1 (start to finish). Can exceed 1 when there is distance between start and finish such as bridge to gantry.
 
+// Is the car on the pit road
+irsdkCVar g_onPitRoad("OnPitRoad");
+
 // double, cars position in lat/lon decimal degrees
 irsdkCVar g_carLat("Lat");
 irsdkCVar g_carLon("Lon");
@@ -148,11 +151,12 @@ void run()
 			int printedSize = snprintf(
 				serialBuffer, 
 				SERIAL_BUFFER_SIZE, 
-				"$IRTEL,%0.3f,%d,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", 
+				"$IRTEL,%0.3f,%d,%d,%f,%d,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f,%f", 
 				g_SessionTime.getDouble(),
 				g_EnterExitReset.getInt(),
 				g_lap.getInt(),
 				g_lapDistancePercentage.getFloat(),
+				g_onPitRoad.getBool(),
 				0.0f, //g_carLon.getDouble(),
 				0.0f, //g_carLat.getDouble(),
 				0.0f, //g_carAlt.getFloat(),
